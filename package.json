@@ -21,6 +21,7 @@
     "prompt-sync": "^4.2.0"
   },
   "devDependencies": {
-    "@types/prompt-sync": "^4.2.3"
+    "@types/prompt-sync": "^4.2.3",
+    "tsx": "^4.23.15"
   }
 }
