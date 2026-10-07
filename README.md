@@ -27,6 +27,7 @@ A lightweight command-line task manager built with TypeScript and Node.js. It le
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/ru0te/todo-tracker.git
    cd todo-tracker
@@ -67,7 +68,7 @@ Example:
 
 ## Notes
 
-The app keeps tasks in memory while the session is running and does not persist data to disk. It is ideal as a simple local task tracker for quick command-line use.
+The app keeps tasks in persistent storage. It is ideal as a simple local task tracker for quick command-line use.
 
 ## License
 
