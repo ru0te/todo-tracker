@@ -1,8 +1,21 @@
 import PromptSync from 'prompt-sync';
+import fs from 'node:fs';
 import { Task } from './types';
 const prompt = PromptSync({ sigint: true });
 
+const TASKS_FILE = 'tasks.json';
 let idCounter: number = 0;
+
+function saveTasks(tasks: Task[]) {
+  fs.writeFileSync(TASKS_FILE, JSON.stringify(tasks, null, 2));
+}
+
+function loadTasks(): Task[] {
+  if (fs.existsSync(TASKS_FILE)) {
+    return JSON.parse(fs.readFileSync(TASKS_FILE, 'utf-8'));
+  }
+  return [];
+}
 
 type CommandHandler = (args: string[], tasks: Task[]) => void;
 
@@ -20,6 +33,7 @@ const commands: Record<string, CommandHandler> = {
       createdAt: now,
       updatedAt: now,
     });
+    saveTasks(tasks);
     console.log('Task added successfully.');
   },
 
@@ -38,6 +52,7 @@ const commands: Record<string, CommandHandler> = {
 
     taskToUpdate.description = prompt('Enter update: ');
     taskToUpdate.updatedAt = new Date().toLocaleString();
+    saveTasks(tasks);
     console.log('Task updated successfully.');
   },
 
@@ -48,6 +63,7 @@ const commands: Record<string, CommandHandler> = {
       return console.log(`Error: Task ID ${args[0]} not found.`);
 
     tasks.splice(index, 1);
+    saveTasks(tasks);
     console.log('Task deleted successfully.');
   },
 
@@ -57,12 +73,16 @@ const commands: Record<string, CommandHandler> = {
     if (!taskToMark) return console.log(`Error: Task ID ${args[0]} not found.`);
 
     taskToMark.completed = true;
+    saveTasks(tasks);
     console.log('Task marked as done.');
   },
 };
 
 function main() {
-  const allTasks: Task[] = [];
+  const allTasks: Task[] = loadTasks();
+  if (allTasks.length > 0) {
+    idCounter = Math.max(...allTasks.map((t) => t.id));
+  }
   console.log('--- Task Manager CLI ---');
   console.log('Available commands:');
   console.log('  add <description>  (e.g., add Buy milk)');
