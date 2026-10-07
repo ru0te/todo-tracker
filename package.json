@@ -1,0 +1,26 @@
+{
+  "name": "todo-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/ru0te/todo-tracker#readme",
+  "bugs": {
+    "url": "https://github.com/ru0te/todo-tracker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ru0te/todo-tracker.git"
+  },
+  "license": "MIT",
+  "author": "Eniola Adewale",
+  "type": "module",
+  "main": "main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/prompt-sync": "^4.2.3"
+  }
+}
